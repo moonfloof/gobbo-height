@@ -32,7 +32,7 @@ async function main () {
 	const rows = await sheet.getRows();
 	const gobboHtml = rows.map(row => fillGobboTemplate(row.get("Name"), row.get("Count"))).join("");
 	const finalFile = fillPageTemplate(gobboHtml);
-	fs.writeFileSync("output.html", finalFile);
+	fs.writeFileSync(process.env.OUTPUT_FILE_NAME ?? "output.html", finalFile);
 }
 
 main();
