@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gobboland Height Comparison</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      line-height: 1;
+    }
+
+    body {
+      background-color: #99d1e7;
+      font-family: 'Comic Sans MS';
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .container {
+      position: absolute;
+      min-width: 100%;
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .container-gobbo {
+      padding: 64px 64px 0;
+      display: flex;
+      align-items: flex-end;
+      z-index: 1;
+    }
+
+    .gobbo {
+      width: 128px;
+      margin: 0 24px;
+      text-align: center;
+    }
+
+    .gobbo img {
+      margin-top: -12px;
+      width: 128px;
+    }
+
+    .gobbo-name {
+      width: 100%;
+      padding: 8px 0;
+      height: 32px;
+      margin-bottom: -32px;
+      font-size: 20px;
+    }
+
+    #ground {
+      background-color: #A78A73;
+      min-height: 256px;
+      flex-grow: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="container-gobbo">
+      {{gobbo-list}}
+    </div>
+    <div id="ground"></div>
+  </div>
+
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', () => {
+      const ground = document.getElementById("ground");
+      ground.scrollIntoView({ behavior: "smooth" });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "gobbo-height",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "TomboFry <tom@tombofry.co.uk>",
+  "license": "AGPL-2.0-or-later",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "google-auth-library": "^9.4.2",
+    "google-spreadsheet": "^4.1.1"
+  }
+}
