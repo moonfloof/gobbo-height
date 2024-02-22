@@ -2,6 +2,7 @@ import { configDotenv } from "dotenv";
 import { getSheet } from "./getSheet.js";
 import { createHash } from 'crypto';
 import fs from 'fs';
+import path from 'path';
 
 configDotenv();
 
@@ -42,11 +43,18 @@ async function main () {
 
 	const colName = process.env.GOOGLE_SHEETS_COL_NAME ?? 'Name';
 	const colCount = process.env.GOOGLE_SHEETS_COL_COUNT ?? 'Count';
-	const outPath = process.env.OUTPUT_FILE_NAME ?? 'output.html';
+	const outDir = process.env.OUTPUT_DIR ?? './';
+	const outFile = path.join(outDir, 'index.html');
 
 	const gobboHtml = rows.map(row => fillGobboTemplate(row.get(colName), row.get(colCount))).join("");
 	const finalFile = fillPageTemplate(gobboHtml);
-	fs.writeFileSync(outPath, finalFile);
+
+	if (!fs.existsSync(outDir)) {
+		fs.mkdirSync(outDir);
+	}
+
+	fs.writeFileSync(outFile, finalFile);
+	fs.cpSync("./images/", path.join(outDir, 'images'), { recursive: true });
 }
 
 main();

@@ -7,8 +7,8 @@ This script will generate a HTML page with all the gobbos (and their respective 
 Create a file called `.env` with the following properties:
 
 ```env
-# Where the HTML file goes
-OUTPUT_FILE_NAME="./public/index.html"
+# Directory in which all files and HTML gets output to
+OUTPUT_DIR="./public"
 
 ### Google API Authentication
 

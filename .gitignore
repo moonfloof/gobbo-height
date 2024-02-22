@@ -1,5 +1,6 @@
 node_modules/
 .env
-images/large/
+original-images/
 *.html
 !template*.html
+build/
