@@ -24,4 +24,10 @@ GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY----- ...etc"
 
 # The tab name at the bottom of the Sheets document you want to copy from
 GOOGLE_SHEETS_SHEET_NAME="Gobbos"
+
+# Header text for the username column
+GOOGLE_SHEETS_COL_NAME="Name"
+
+# Header text for the gobbo-count column
+GOOGLE_SHEETS_COL_COUNT="Count"
 ```

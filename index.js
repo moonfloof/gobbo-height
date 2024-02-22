@@ -1,5 +1,6 @@
 import { configDotenv } from "dotenv";
 import { getSheet } from "./getSheet.js";
+import { createHash } from 'crypto';
 import fs from 'fs';
 
 configDotenv();
@@ -8,14 +9,22 @@ const templatePage = fs.readFileSync("template.html");
 const templateGobbo = fs.readFileSync("template-gobbo.html");
 
 const fillGobboTemplate = (name = "", count = 0) => {
+	if (name === "" || count === 0) return '';
+
 	let newTemplate = `${templateGobbo}`;
+	let hashedUsername = createHash('sha256').update(name.toLowerCase()).digest('hex');
+
+	const imagePath = fs.existsSync(`./images/${hashedUsername}.png`)
+		? `./images/${hashedUsername}.png`
+		: './images/default.png';
 
 	const images = Array.from({ length: count }).map((_, index) => (
-		`<img src="./gobbo.png" />`
+		`<img src="${imagePath}" />`
 	)).join("");
 
 	newTemplate = newTemplate.replace(/{{gobbo-images}}/, images);
 	newTemplate = newTemplate.replace(/{{gobbo-name}}/, name);
+	newTemplate = newTemplate.replace(/{{gobbo-count}}/, count);
 
 	return newTemplate;
 }
@@ -30,9 +39,14 @@ const fillPageTemplate = (gobbos = "") => {
 async function main () {
 	const sheet = await getSheet();
 	const rows = await sheet.getRows();
-	const gobboHtml = rows.map(row => fillGobboTemplate(row.get("Name"), row.get("Count"))).join("");
+
+	const colName = process.env.GOOGLE_SHEETS_COL_NAME ?? 'Name';
+	const colCount = process.env.GOOGLE_SHEETS_COL_COUNT ?? 'Count';
+	const outPath = process.env.OUTPUT_FILE_NAME ?? 'output.html';
+
+	const gobboHtml = rows.map(row => fillGobboTemplate(row.get(colName), row.get(colCount))).join("");
 	const finalFile = fillPageTemplate(gobboHtml);
-	fs.writeFileSync(process.env.OUTPUT_FILE_NAME ?? "output.html", finalFile);
+	fs.writeFileSync(outPath, finalFile);
 }
 
 main();
