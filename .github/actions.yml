@@ -1,0 +1,34 @@
+name: Rebuild site
+on:
+  schedule:
+    - cron: "9 1 * * *"
+
+jobs:
+  deployment:
+    environment: github-pages
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 🛎️ Checkout
+      uses: actions/checkout@v3
+    - name: ⚙ Use Node.js 18.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18.x
+        cache: 'npm'
+    - name: 🔧 Build
+      run: |
+        npm ci
+        npm start
+      env:
+        OUTPUT_DIR: ${{ secrets.OUTPUT_DIR }}
+        GOOGLE_SHEETS_ID: ${{ secrets.GOOGLE_SHEETS_ID }}
+        GOOGLE_CLIENT_EMAIL: ${{ secrets.GOOGLE_CLIENT_EMAIL }}
+        GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
+        GOOGLE_SHEETS_SHEET_NAME: ${{ secrets.GOOGLE_SHEETS_SHEET_NAME }}
+        GOOGLE_SHEETS_COL_NAME: ${{ secrets.GOOGLE_SHEETS_COL_NAME }}
+        GOOGLE_SHEETS_COL_COUNT: ${{ secrets.GOOGLE_SHEETS_COL_COUNT }}
+    - name: 🚀 Deploy
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: ${{ secrets.OUTPUT_DIR }}
