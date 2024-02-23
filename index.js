@@ -43,7 +43,7 @@ async function main () {
 
 	const colName = process.env.GOOGLE_SHEETS_COL_NAME ?? 'Name';
 	const colCount = process.env.GOOGLE_SHEETS_COL_COUNT ?? 'Count';
-	const outDir = process.env.OUTPUT_DIR ?? './';
+	const outDir = process.env.OUTPUT_DIR ?? '';
 	const outFile = path.join(outDir, 'index.html');
 
 	const gobboHtml = rows.map(row => fillGobboTemplate(row.get(colName), row.get(colCount))).join("");
@@ -54,7 +54,7 @@ async function main () {
 	}
 
 	fs.writeFileSync(outFile, finalFile);
-	fs.cpSync("./images/", path.join(outDir, 'images'), { recursive: true });
+	fs.cpSync("images/", path.join(outDir, 'images'), { recursive: true });
 }
 
 main();
