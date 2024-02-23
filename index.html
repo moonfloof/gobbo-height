@@ -570,8 +570,16 @@
 
   <script type="text/javascript" defer>
     document.addEventListener('DOMContentLoaded', () => {
-      const ground = document.getElementById("ground");
-      ground.scrollIntoView({ behavior: "smooth" });
+      Promise.all(Array
+        .from(document.images)
+        .filter(img => !img.complete)
+        .map(img => new Promise(resolve => {
+          img.onload = img.onerror = resolve;
+        }))).then(() => {
+          const ground = document.getElementById("ground");
+          ground.scrollIntoView({ behavior: "smooth" });
+        }
+      );
     });
   </script>
 </body>
