@@ -14,7 +14,7 @@
 
     body {
       background-color: #99d1e7;
-      font-family: 'Comic Sans MS';
+      font-family: 'Comic Sans MS', sans-serif;
       color: #fff;
     }
 
@@ -35,8 +35,8 @@
     }
 
     .gobbo {
-      width: 140px;
-      margin: 0 12px;
+      width: 150px;
+      margin: 0 8px;
       text-align: center;
       user-select: none;
     }
@@ -71,7 +71,7 @@
     <div id="ground"></div>
   </div>
 
-  <script type="text/javascript">
+  <script type="text/javascript" defer>
     document.addEventListener('DOMContentLoaded', () => {
       const ground = document.getElementById("ground");
       ground.scrollIntoView({ behavior: "smooth" });
