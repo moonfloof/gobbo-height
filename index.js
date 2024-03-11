@@ -46,6 +46,8 @@ async function main () {
 	const outDir = process.env.OUTPUT_DIR ?? '';
 	const outFile = path.join(outDir, 'index.html');
 
+	rows.sort((a, b) => b.get(colCount) - a.get(colCount));
+
 	const gobboHtml = rows.map(row => fillGobboTemplate(row.get(colName), row.get(colCount))).join("");
 	const finalFile = fillPageTemplate(gobboHtml);
 
