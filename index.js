@@ -20,7 +20,7 @@ const fillGobboTemplate = (name = "", count = 0) => {
 		: './images/default.png';
 
 	const images = Array.from({ length: count }).map((_, index) => (
-		`<img src="${imagePath}" />`
+		`<img src="${imagePath}" />\n`
 	)).join("");
 
 	newTemplate = newTemplate.replace(/{{gobbo-images}}/, images);
