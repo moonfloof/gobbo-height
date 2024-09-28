@@ -32,6 +32,6 @@ jobs:
         GOOGLE_SHEETS_COL_NAME: ${{ secrets.GOOGLE_SHEETS_COL_NAME }}
         GOOGLE_SHEETS_COL_COUNT: ${{ secrets.GOOGLE_SHEETS_COL_COUNT }}
     - name: 🚀 Deploy
-      uses: JamesIves/github-pages-deploy-action@v4
+      uses: JamesIves/github-pages-deploy-action@v4.6.4
       with:
         folder: ${{ secrets.OUTPUT_DIR }}
