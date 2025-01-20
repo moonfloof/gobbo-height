@@ -29,9 +29,14 @@ const fillGobboTemplate = (name = "", count = 0, buffCount = 0) => {
 
 	const allImages = [...images, ...buffImages].join("");
 
+	let countnum = Number(count);
+	if (Number.isInteger(Number(buffCount))) {
+		countnum += Number(buffCount);
+	}
+
 	newTemplate = newTemplate.replace(/{{gobbo-images}}/, allImages);
 	newTemplate = newTemplate.replace(/{{gobbo-name}}/, name);
-	newTemplate = newTemplate.replace(/{{gobbo-count}}/, count);
+	newTemplate = newTemplate.replace(/{{gobbo-count}}/, countnum);
 
 	return newTemplate;
 }
