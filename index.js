@@ -58,7 +58,10 @@ async function main () {
 	const outDir = process.env.OUTPUT_DIR ?? '';
 	const outFile = path.join(outDir, 'index.html');
 
-	rows.sort((a, b) => b.get(colCount) - a.get(colCount));
+	rows.sort((a, b) => (
+		(Number(b.get(colCount) || 0) + Number(b.get(colBuffCount) || 0)) -
+		(Number(a.get(colCount) || 0) + Number(a.get(colBuffCount) || 0))
+	));
 
 	const gobboHtml = rows.map(row => fillGobboTemplate(
 		row.get(colName),
