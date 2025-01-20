@@ -9,7 +9,7 @@ configDotenv();
 const templatePage = fs.readFileSync("template.html");
 const templateGobbo = fs.readFileSync("template-gobbo.html");
 
-const fillGobboTemplate = (name = "", count = 0) => {
+const fillGobboTemplate = (name = "", count = 0, buffCount = 0) => {
 	if (name === "" || count === 0) return '';
 
 	let newTemplate = `${templateGobbo}`;
@@ -21,9 +21,15 @@ const fillGobboTemplate = (name = "", count = 0) => {
 
 	const images = Array.from({ length: count }).map((_, index) => (
 		`<img src="${imagePath}" />\n`
-	)).join("");
+	));
 
-	newTemplate = newTemplate.replace(/{{gobbo-images}}/, images);
+	const buffImages = Array.from({ length: buffCount }).map((_, index) => (
+		`<img class="wide" src="${imagePath}" />\n`
+	));
+
+	const allImages = [...images, ...buffImages].join("");
+
+	newTemplate = newTemplate.replace(/{{gobbo-images}}/, allImages);
 	newTemplate = newTemplate.replace(/{{gobbo-name}}/, name);
 	newTemplate = newTemplate.replace(/{{gobbo-count}}/, count);
 
@@ -43,12 +49,18 @@ async function main () {
 
 	const colName = process.env.GOOGLE_SHEETS_COL_NAME ?? 'Name';
 	const colCount = process.env.GOOGLE_SHEETS_COL_COUNT ?? 'Count';
+	const colBuffCount = process.env.GOOGLE_SHEETS_COL_BUFF_COUNT ?? 'Buff';
 	const outDir = process.env.OUTPUT_DIR ?? '';
 	const outFile = path.join(outDir, 'index.html');
 
 	rows.sort((a, b) => b.get(colCount) - a.get(colCount));
 
-	const gobboHtml = rows.map(row => fillGobboTemplate(row.get(colName), row.get(colCount))).join("");
+	const gobboHtml = rows.map(row => fillGobboTemplate(
+		row.get(colName),
+		row.get(colCount),
+		row.get(colBuffCount)
+	)).join("");
+
 	const finalFile = fillPageTemplate(gobboHtml);
 
 	if (!fs.existsSync(outDir)) {
