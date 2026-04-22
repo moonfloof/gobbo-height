@@ -9,7 +9,7 @@ let doc = null;
 /**
  * @returns {Promise<GoogleSpreadsheetWorksheet>}
  */
-export async function getSheet () {
+export async function getSheet() {
 	if (doc === null) {
 		const serviceAuth = new JWT({
 			email: process.env.GOOGLE_CLIENT_EMAIL,

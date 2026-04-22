@@ -1,6 +1,7 @@
 # Gobbo Height Generator
 
-This script will generate a HTML page with all the gobbos (and their respective heights) from a Google Sheets document.
+This script will generate a HTML page with all the gobbos (and their respective
+heights) from a Google Sheets document.
 
 ## Configuration
 

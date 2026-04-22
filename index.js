@@ -48,7 +48,7 @@ const fillPageTemplate = (gobbos = "") => {
 	return newTemplate;
 }
 
-async function main () {
+async function main() {
 	const sheet = await getSheet();
 	const rows = await sheet.getRows();
 
